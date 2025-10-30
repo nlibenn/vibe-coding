@@ -1,6 +1,6 @@
-# Vibe Coding – Simple App
+# SAT AI Tutor – Elite Score Playbook
 
-A minimal static starter with a light/dark vibe toggle and a small landing page.
+An SAT tutoring app with lessons, drills, strategies, and an AI tutor UI. Static frontend deployable on GitHub Pages; optional backend on Render for live AI responses.
 
 ## Run locally
 
@@ -19,7 +19,7 @@ python3 -m http.server 5173
 - Edit `styles.css` to tweak colors or layout. Theme variables live under `:root` and `html[data-theme="light"]`.
 - Edit `script.js` to adjust interactions. Theme preference is persisted to `localStorage`.
 
-## Supabase integration
+## Supabase integration (optional)
 
 This project can connect to Supabase in the browser using the anon key.
 
@@ -49,3 +49,24 @@ This is a static site. You can deploy to any static host (GitHub Pages, Netlify,
 
 ### GitHub Pages (Actions)
 Already configured via `.github/workflows/pages.yml`. Push to `main` to deploy, then check Settings → Pages for the URL.
+
+## AI Tutor backend (optional via Render)
+- This repo ships a client-side heuristic tutor by default (no keys required). For live AI, deploy a tiny backend on Render that proxies to your LLM (OpenAI, etc.).
+- Endpoint contract expected by the frontend:
+
+Request:
+
+```http
+POST /api/tutor
+Content-Type: application/json
+
+{ "prompt": "your question" }
+```
+
+Response:
+
+```json
+{ "reply": "assistant answer" }
+```
+
+Point `getTutorReply` in `script.js` to your deployed URL.

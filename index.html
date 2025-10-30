@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Vibe Coding • Simple App</title>
+    <title>SAT AI Tutor • Elite Score Playbook</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="container header">
       <div class="brand">
         <div class="logo" aria-hidden="true">✨</div>
-        <h1>Vibe Coding</h1>
+        <h1>SAT AI Tutor</h1>
       </div>
       <button id="themeToggle" class="button" type="button" aria-label="Toggle theme">
         Toggle Vibe
@@ -19,28 +19,68 @@
 
     <main class="container main">
       <section class="hero">
-        <h2 id="greeting">Welcome</h2>
-        <p class="subtitle">A tiny starter you can extend however you like.</p>
+        <h2 id="greeting">Crush the SAT</h2>
+        <p class="subtitle">Learn high-leverage testing hacks, drill smarter, and get elite scores.</p>
         <p class="subtitle" id="supabaseStatus">Supabase: not configured</p>
-        <div class="cta-row">
-          <a class="button primary" href="#get-started">Get Started</a>
-          <a class="button" href="https://developer.mozilla.org/" target="_blank" rel="noreferrer">Docs</a>
+        <nav class="tabs" aria-label="SAT Sections">
+          <button class="tab active" data-tab="lessons" type="button">Lessons</button>
+          <button class="tab" data-tab="drills" type="button">Drills</button>
+          <button class="tab" data-tab="strategies" type="button">Strategies</button>
+          <button class="tab" data-tab="tutor" type="button">AI Tutor</button>
+        </nav>
+      </section>
+
+      <section id="tab-lessons" class="card-grid tab-panel active" role="region" aria-labelledby="lessons">
+        <article class="card">
+          <h3>Reading • Evidence First</h3>
+          <p>Skim questions before passages. Mark keywords, hunt line refs, then scan passage for proof.</p>
+        </article>
+        <article class="card">
+          <h3>Writing • Grammar Targets</h3>
+          <p>Memorize top rules: Subject–Verb, Pronouns, Modifiers, Parallelism, Punctuation, Transitions.</p>
+        </article>
+        <article class="card">
+          <h3>Math • Plug and Play</h3>
+          <p>Backsolve from answer choices; substitute easy numbers to simplify variables and ratios.</p>
+        </article>
+      </section>
+
+      <section id="tab-drills" class="tab-panel" role="region" aria-labelledby="drills">
+        <div class="drill-box card">
+          <div id="drillQuestion" class="drill-question"></div>
+          <div id="drillChoices" class="drill-choices"></div>
+          <div id="drillFeedback" class="drill-feedback"></div>
+          <div class="cta-row">
+            <button id="drillNext" class="button primary" type="button">Next</button>
+            <span id="drillScore" class="muted"></span>
+          </div>
         </div>
       </section>
 
-      <section id="get-started" class="card-grid">
+      <section id="tab-strategies" class="card-grid tab-panel" role="region" aria-labelledby="strategies">
         <article class="card">
-          <h3>Edit</h3>
-          <p>Open <code>index.html</code>, <code>styles.css</code>, and <code>script.js</code> to customize.</p>
+          <h3>2-Pass Timing</h3>
+          <p>Do quick wins first, mark time-sinks, and return with remaining time to maximize points.</p>
         </article>
         <article class="card">
-          <h3>Run</h3>
-          <p>Serve locally to enable fast reloads and correct asset paths.</p>
+          <h3>Elimination > Certainty</h3>
+          <p>Eliminate wrong answers aggressively. Choose the least-wrong; the SAT rewards process.</p>
         </article>
         <article class="card">
-          <h3>Ship</h3>
-          <p>Host on any static provider: GitHub Pages, Netlify, Vercel, S3, etc.</p>
+          <h3>Precision Over Opinion</h3>
+          <p>Answers must be text-justified or algebraically proven. If you can’t prove it, cut it.</p>
         </article>
+      </section>
+
+      <section id="tab-tutor" class="tab-panel" role="region" aria-labelledby="tutor">
+        <div class="tutor card">
+          <div id="chatLog" class="chat-log" aria-live="polite"></div>
+          <form id="chatForm" class="chat-form">
+            <input id="chatInput" class="chat-input" type="text" placeholder="Ask me anything about the SAT…" aria-label="Chat input" />
+            <button class="button primary" type="submit">Ask</button>
+          </form>
+          <p class="muted small">No key set? I’ll answer with on-device tips.</p>
+        </div>
       </section>
     </main>
 
