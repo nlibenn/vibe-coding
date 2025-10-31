@@ -79,14 +79,14 @@ function initTabs() {
     lessons: document.getElementById('tab-lessons'),
     drills: document.getElementById('tab-drills'),
     strategies: document.getElementById('tab-strategies'),
-    tutor: document.getElementById('tab-tutor'),
+    flashcards: document.getElementById('tab-flashcards'),
   };
   function activate(name) {
     tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
     Object.entries(panels).forEach(([key, el]) => el && el.classList.toggle('active', key === name));
   }
   tabs.forEach(t => t.addEventListener('click', () => activate(t.dataset.tab)));
-  activate('lessons');
+  activate('flashcards');
 }
 
 // Drills (sample questions)
