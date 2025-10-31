@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   initTabs();
   initDrills();
-  initTutor();
+  initFlashcards();
 });
 
 // Tabs
@@ -153,51 +153,79 @@ function initDrills() {
   });
 }
 
-// Tutor chat
-function initTutor() {
-  const log = document.getElementById('chatLog');
-  const form = document.getElementById('chatForm');
-  const input = document.getElementById('chatInput');
-  if (!log || !form || !input) return;
+// Flashcards: SAT Math concepts
+const mathFlashcards = [
+  {
+    tag: 'Algebra • Linear Equations',
+    front: 'Solve 2x + 3 = 11. What is x?',
+    back: '2x = 8 → x = 4'
+  },
+  {
+    tag: 'Algebra • Systems',
+    front: 'Solve: x + y = 10 and x − y = 2',
+    back: 'Add: 2x = 12 → x = 6. Then y = 4'
+  },
+  {
+    tag: 'Functions • Interpretation',
+    front: 'f(x) = 3x + 5. What does 5 represent in context?',
+    back: 'The initial value (y-intercept) when x = 0'
+  },
+  {
+    tag: 'Geometry • Similarity',
+    front: 'If triangles are similar with scale factor k, how do areas scale?',
+    back: 'Areas scale by k²'
+  },
+  {
+    tag: 'Data • Percent Change',
+    front: 'Increase 50 by 20%, then decrease result by 20%. Final vs 50?',
+    back: '50 → 60 → 48. Not symmetric; final is 48'
+  }
+];
 
-  function addMsg(role, text) {
-    const div = document.createElement('div');
-    div.className = `chat-msg ${role}`;
-    div.textContent = text;
-    log.appendChild(div);
-    log.scrollTop = log.scrollHeight;
+function initFlashcards() {
+  const tagEl = document.getElementById('flashcardTag');
+  const frontEl = document.getElementById('flashcardFront');
+  const backEl = document.getElementById('flashcardBack');
+  const prevBtn = document.getElementById('flashPrev');
+  const nextBtn = document.getElementById('flashNext');
+  const flipBtn = document.getElementById('flashFlip');
+  const shuffleBtn = document.getElementById('flashShuffle');
+  const progressEl = document.getElementById('flashProgress');
+  if (!tagEl || !frontEl || !backEl) return;
+
+  let index = 0;
+  let order = [...mathFlashcards.keys()];
+
+  function render() {
+    const card = mathFlashcards[order[index]];
+    tagEl.textContent = card.tag;
+    frontEl.textContent = card.front;
+    backEl.textContent = card.back;
+    backEl.hidden = true;
+    flipBtn.textContent = 'Show Answer';
+    progressEl.textContent = `Card ${index + 1} of ${order.length}`;
   }
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const msg = (input.value || '').trim();
-    if (!msg) return;
-    addMsg('user', msg);
-    input.value = '';
-    addMsg('ai', 'Thinking…');
-
-    try {
-      const reply = await getTutorReply(msg);
-      log.lastChild.textContent = reply;
-    } catch (_) {
-      log.lastChild.textContent = 'Sorry, I could not respond right now.';
+  function next() { index = (index + 1) % order.length; render(); }
+  function prev() { index = (index - 1 + order.length) % order.length; render(); }
+  function flip() {
+    const hidden = backEl.hidden;
+    backEl.hidden = !hidden;
+    flipBtn.textContent = hidden ? 'Hide Answer' : 'Show Answer';
+  }
+  function shuffle() {
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
     }
-  });
-}
+    index = 0; render();
+  }
 
-async function getTutorReply(prompt) {
-  // If you deploy a backend, change this to your endpoint
-  // Example: const res = await fetch('https://your-render-service.onrender.com/api/tutor', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ prompt }) });
-  // For now, provide a local, on-device strategy tip
-  return heuristicTutor(prompt);
-}
+  if (nextBtn) nextBtn.addEventListener('click', next);
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (flipBtn) flipBtn.addEventListener('click', flip);
+  if (shuffleBtn) shuffleBtn.addEventListener('click', shuffle);
 
-function heuristicTutor(prompt) {
-  const p = prompt.toLowerCase();
-  if (p.includes('reading')) return 'Reading: read questions first; hunt for keywords and line references. Choose the answer you can prove with text.';
-  if (p.includes('writing')) return 'Writing: check Subject–Verb agreement, pronoun clarity, modifier placement, and transitions. Prefer concise, grammatically sound choices.';
-  if (p.includes('math') || p.includes('algebra')) return 'Math: plug in easy numbers and backsolve from choices. Translate words to algebra and check units.';
-  if (p.includes('timing') || p.includes('time')) return 'Timing: 2-pass method—first sweep quick points, star tough ones, return later. Keep momentum high.';
-  return 'General SAT tip: eliminate wrong answers aggressively and select the choice you can justify with explicit evidence or math.';
+  render();
 }
 

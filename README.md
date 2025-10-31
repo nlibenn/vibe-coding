@@ -1,11 +1,18 @@
-# SAT AI Tutor – Elite Score Playbook
+# SAT Flashcards – Elite Score Playbook
 
-An SAT tutoring app with lessons, drills, strategies, and an AI tutor UI. Static frontend deployable on GitHub Pages; optional backend on Render for live AI responses.
+SAT study app with Lessons, Drills, Strategies, and Math Flashcards. Static frontend deployable on GitHub Pages.
 
 ## Run locally
 
-- Option 1: Open `index.html` directly in your browser.
-- Option 2: Serve with a simple web server (recommended):
+- Option 1: Vite dev server (recommended):
+
+```bash
+npm install
+npm run dev
+# open the shown localhost URL (default http://localhost:5173)
+```
+
+- Option 2: Simple web server:
 
 ```bash
 # From the project root
@@ -50,23 +57,6 @@ This is a static site. You can deploy to any static host (GitHub Pages, Netlify,
 ### GitHub Pages (Actions)
 Already configured via `.github/workflows/pages.yml`. Push to `main` to deploy, then check Settings → Pages for the URL.
 
-## AI Tutor backend (optional via Render)
-- This repo ships a client-side heuristic tutor by default (no keys required). For live AI, deploy a tiny backend on Render that proxies to your LLM (OpenAI, etc.).
-- Endpoint contract expected by the frontend:
-
-Request:
-
-```http
-POST /api/tutor
-Content-Type: application/json
-
-{ "prompt": "your question" }
-```
-
-Response:
-
-```json
-{ "reply": "assistant answer" }
-```
-
-Point `getTutorReply` in `script.js` to your deployed URL.
+## Flashcards
+- Navigate to the Flashcards tab.
+- Use Prev/Next, Shuffle, and Show/Hide Answer to review SAT Math concepts.

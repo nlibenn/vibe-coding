@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SAT AI Tutor • Elite Score Playbook</title>
+    <title>SAT Flashcards • Elite Score Playbook</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="container header">
       <div class="brand">
         <div class="logo" aria-hidden="true">✨</div>
-        <h1>SAT AI Tutor</h1>
+        <h1>SAT Flashcards</h1>
       </div>
       <button id="themeToggle" class="button" type="button" aria-label="Toggle theme">
         Toggle Vibe
@@ -26,7 +26,7 @@
           <button class="tab active" data-tab="lessons" type="button">Lessons</button>
           <button class="tab" data-tab="drills" type="button">Drills</button>
           <button class="tab" data-tab="strategies" type="button">Strategies</button>
-          <button class="tab" data-tab="tutor" type="button">AI Tutor</button>
+          <button class="tab" data-tab="flashcards" type="button">Flashcards</button>
         </nav>
       </section>
 
@@ -72,14 +72,18 @@
         </article>
       </section>
 
-      <section id="tab-tutor" class="tab-panel" role="region" aria-labelledby="tutor">
-        <div class="tutor card">
-          <div id="chatLog" class="chat-log" aria-live="polite"></div>
-          <form id="chatForm" class="chat-form">
-            <input id="chatInput" class="chat-input" type="text" placeholder="Ask me anything about the SAT…" aria-label="Chat input" />
-            <button class="button primary" type="submit">Ask</button>
-          </form>
-          <p class="muted small">No key set? I’ll answer with on-device tips.</p>
+      <section id="tab-flashcards" class="tab-panel" role="region" aria-labelledby="flashcards">
+        <div class="card flashcard-box">
+          <div id="flashcardTag" class="muted small"></div>
+          <div id="flashcardFront" class="flashcard-front"></div>
+          <div id="flashcardBack" class="flashcard-back" hidden></div>
+          <div class="cta-row">
+            <button id="flashPrev" class="button" type="button">Prev</button>
+            <button id="flashFlip" class="button primary" type="button">Show Answer</button>
+            <button id="flashNext" class="button" type="button">Next</button>
+            <button id="flashShuffle" class="button" type="button">Shuffle</button>
+          </div>
+          <div id="flashProgress" class="muted small"></div>
         </div>
       </section>
     </main>
